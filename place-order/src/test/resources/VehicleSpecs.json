@@ -1,0 +1,15 @@
+{
+  "model": "Tahoe",
+  "engine": {
+    "capacity": "6.2",
+    "configuration": "V6"
+  },
+  "transmission": {
+    "drive": "AWD",
+    "shift": "auto"
+  },
+  "trim": {
+    "level": "LX",
+    "color": "husker red"
+  }
+}

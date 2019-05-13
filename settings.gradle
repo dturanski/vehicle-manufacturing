@@ -1,0 +1,2 @@
+rootProject.name = 'manufacturing-process'
+include 'manufacturing-common','place-order', 'build-body', 'add-engine', 'add-transmission', 'add-trim', 'quality-assure'

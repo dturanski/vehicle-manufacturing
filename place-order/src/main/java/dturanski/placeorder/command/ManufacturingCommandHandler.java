@@ -1,6 +1,5 @@
 package dturanski.placeorder.command;
 
-import dturanski.placeorder.VehicleRepository;
 import dturanski.placeorder.domain.Vehicle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,6 @@ public class ManufacturingCommandHandler {
 
     @Autowired
     CommandChannels commandChannels;
-
-    private final VehicleRepository vehicleRepository;
-
-    public ManufacturingCommandHandler(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
-    }
-
 
     public void buildBody(BuildBodyRequest buildBodyRequest) {
         log.info("Sending build body request {}", buildBodyRequest);

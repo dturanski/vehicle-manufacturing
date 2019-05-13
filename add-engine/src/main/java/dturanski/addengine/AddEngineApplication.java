@@ -7,8 +7,11 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.support.MessageBuilder;
 
+import java.util.Collections;
 import java.util.Random;
 
 @SpringBootApplication
@@ -23,7 +26,7 @@ public class AddEngineApplication {
 
     @StreamListener(Processor.INPUT)
     @SendTo(Processor.OUTPUT)
-    public Event addEngine(AddEngineRequest request) {
+    public Message<Event> addEngine(AddEngineRequest request) {
 
         try {
             Thread.sleep(new Long(random.nextInt(5000)));
@@ -35,7 +38,8 @@ public class AddEngineApplication {
         event.setType("engineAdded");
         event.setData(request);
 
-        return event;
+        return MessageBuilder.withPayload(event)
+                .copyHeaders(Collections.singletonMap("event-type",event.getType())).build();
     }
 
 }

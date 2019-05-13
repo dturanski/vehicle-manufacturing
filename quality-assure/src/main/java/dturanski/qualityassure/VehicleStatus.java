@@ -1,5 +1,6 @@
 package dturanski.qualityassure;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class VehicleStatus {
     private boolean trimAdded;
     private boolean inspectionPassed;
 
+    @JsonIgnore
     public boolean isAssemblyComplete() {
 
         return bodyBuilt &&

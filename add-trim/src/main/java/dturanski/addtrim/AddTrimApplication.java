@@ -7,8 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.support.MessageBuilder;
 
+import java.util.Collections;
 import java.util.Random;
 
 @SpringBootApplication
@@ -23,7 +26,7 @@ public class AddTrimApplication {
 
     @StreamListener(Processor.INPUT)
     @SendTo(Processor.OUTPUT)
-    public Event addTrim(AddTrimRequest request) {
+    public Message<Event> addTrim(AddTrimRequest request) {
 
         try {
             Thread.sleep(new Long(random.nextInt(5000)));
@@ -36,7 +39,8 @@ public class AddTrimApplication {
         event.setData(request);
         log.info("Sending trim added event {}", event);
 
-        return event;
+        return MessageBuilder.withPayload(event)
+                .copyHeaders(Collections.singletonMap("event-type",event.getType())).build();
     }
 
 }

@@ -22,7 +22,7 @@ public class ManufacturingEventsHandler {
         this.commandHandler = manufacturingCommandHandler;
     }
 
-    @StreamListener(EventChannels.BODY_BUILT)
+    @StreamListener(value = EventChannels.EVENTS, condition = "headers['event-type']=='bodyBuilt'")
     public void handleBodyBuilt(Event event) {
         log.info("received body built event {}", event);
 
@@ -35,7 +35,7 @@ public class ManufacturingEventsHandler {
         commandHandler.addTrim(new AddTrimRequest(vehicle.getVinNumber(), vehicle.getVehicleSpec().getTrim()));
     }
 
-    @StreamListener(EventChannels.ENGINE_ADDED)
+    @StreamListener(value = EventChannels.EVENTS, condition = "headers['event-type']=='engineAdded'")
     public void handleEngineAdded(Event event) {
         log.info("received engine added event {}", event);
 
@@ -46,7 +46,7 @@ public class ManufacturingEventsHandler {
         inspectVehicleIfAssemblyComplete(vehicle);
     }
 
-    @StreamListener(EventChannels.TRANSMISSION_ADDED)
+    @StreamListener(value = EventChannels.EVENTS, condition = "headers['event-type']=='transmissionAdded'")
     public void handleTransmissionAdded(Event event) {
         log.info("received transmission added event {}", event);
         AddTransmissionRequest addTransmissionRequest = objectMapper.convertValue(event.getData(),AddTransmissionRequest.class);
@@ -57,7 +57,7 @@ public class ManufacturingEventsHandler {
 
     }
 
-    @StreamListener(EventChannels.TRIM_ADDED)
+    @StreamListener(value = EventChannels.EVENTS, condition = "headers['event-type']=='trimAdded'")
     public void handleTrimAdded(Event event) {
         log.info("received trim added event {}", event);
 
@@ -68,10 +68,12 @@ public class ManufacturingEventsHandler {
         inspectVehicleIfAssemblyComplete(vehicle);
     }
 
-    @StreamListener(EventChannels.VEHICLE_INSPECTED)
+    @StreamListener(value = EventChannels.EVENTS, condition = "headers['event-type']=='vehicleInspected'")
     public void handleVehicleInspected(Event event) {
         log.info("received vehicle inspected event {}", event);
-        log.info("Quality inspection report {}", event.getData());
+        Vehicle vehicle = objectMapper.convertValue(event.getData(),Vehicle.class);
+        vehicleRepository.save(vehicle);
+        log.info("Quality inspection {} for vehicle {}", vehicle.getVehicleStatus().isInspectionPassed() ? "passed" : "failed", vehicle);
     }
 
     private Vehicle getVehicle(String vin) {

@@ -6,8 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.support.MessageBuilder;
 
+import java.util.Collections;
 import java.util.Random;
 
 @SpringBootApplication
@@ -22,7 +25,7 @@ public class BuildBodyApplication {
 
     @StreamListener(Processor.INPUT)
     @SendTo(Processor.OUTPUT)
-    public Event buildBody(BuildBodyRequest request) {
+    public Message<Event> buildBody(BuildBodyRequest request) {
 
         try {
             Thread.sleep(new Long(random.nextInt(5000)));
@@ -34,7 +37,8 @@ public class BuildBodyApplication {
         event.setType("bodyBuilt");
         event.setData(request);
 
-        return event;
+        return MessageBuilder.withPayload(event)
+                .copyHeaders(Collections.singletonMap("event-type",event.getType())).build();
     }
 
 }

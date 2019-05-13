@@ -6,8 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.support.MessageBuilder;
 
+import java.util.Collections;
 import java.util.Random;
 
 @SpringBootApplication
@@ -21,7 +24,7 @@ public class QualityAssureApplication {
 
     @StreamListener(Processor.INPUT)
     @SendTo(Processor.OUTPUT)
-    public Event inspectVehicle(Vehicle vehicle) {
+    public Message<Event> inspectVehicle(Vehicle vehicle) {
 
         try {
             Thread.sleep(new Long(random.nextInt(5000)));
@@ -40,9 +43,10 @@ public class QualityAssureApplication {
             passed = false;
         }
 
-        VehicleInspectionReport report = new VehicleInspectionReport(passed, vehicle);
-        event.setData(report);
+        vehicle.getVehicleStatus().setInspectionPassed(true);
+        event.setData(vehicle);
 
-        return event;
+        return MessageBuilder.withPayload(event)
+                .copyHeaders(Collections.singletonMap("event-type",event.getType())).build();
     }
 }

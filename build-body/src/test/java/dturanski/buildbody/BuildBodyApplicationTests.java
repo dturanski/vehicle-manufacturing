@@ -30,11 +30,14 @@ public class BuildBodyApplicationTests {
                 .run(context -> {
 
                     OutputDestination output = context.getBean(OutputDestination.class);
+
                     CommandLineRunner commandLineRunner = context.getBean(CommandLineRunner.class);
                     //Json serialization flattens the json
                     commandLineRunner.run("request=" + objectMapper.writeValueAsString(buildBodyRequest),
                             "maxSleepMs=0");
+
                     Message<byte[]> eventMessage = output.receive(1000);
+
                     assertThat(eventMessage).isNotNull();
 
                     ObjectMapper objectMapper = new ObjectMapper();

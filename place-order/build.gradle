@@ -28,7 +28,6 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.data:spring-data-keyvalue:2.0.6.RELEASE'
-    implementation 'org.springframework.cloud.stream.app:app-starters-task-launch-request-common:2.1.1.RELEASE'
     implementation 'dturanski:manufacturing-common:0.0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

@@ -32,10 +32,8 @@ repositories {
     mavenLocal()
 }
 
-jar { 
-    enabled=true
-}
-
+jar.enabled = true
+bootJar.enabled = false
 
 dependencies {
     implementation 'org.springframework:spring-core'

@@ -1,6 +1,6 @@
 package dturanski.placeorder;
 
-import dturanski.manufacturing.util.Utils;
+import dturanski.manufacturing.util.JsonUtils;
 import dturanski.placeorder.domain.VehicleSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ public class OrderControllerTests {
         MvcResult result = this.mockMvc.perform(
                 post("/orders")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(Utils.getResourceContents("VehicleSpecs.json")))
+                        .content(JsonUtils.getResourceContents("VehicleSpecs.json")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();

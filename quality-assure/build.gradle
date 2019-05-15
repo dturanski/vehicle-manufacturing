@@ -6,11 +6,6 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'idea'
-apply plugin: 'maven'
-apply plugin: 'java'
-
 
 group = 'dturanski'
 version = '0.0.1-SNAPSHOT'
@@ -25,24 +20,18 @@ ext {
     set('springCloudVersion', 'Greenwich.SR1')
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-function-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-task'
     implementation 'org.springframework.cloud:spring-cloud-stream'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
     implementation 'org.springframework.kafka:spring-kafka'
-    implementation 'dturanski:manufacturing-common:0.0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'dturanski:manufacturing-common:0.0.1-SNAPSHOT'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
     testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder'
 }
 
 dependencyManagement {

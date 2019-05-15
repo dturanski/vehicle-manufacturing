@@ -2,14 +2,13 @@ package dturanski.placeorder.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dturanski.manufacturing.event.Event;
-import dturanski.manufacturing.util.Utils;
+import dturanski.manufacturing.util.JsonUtils;
 import dturanski.placeorder.VehicleRepository;
 import dturanski.placeorder.command.BuildBodyRequest;
 import dturanski.placeorder.command.ManufacturingCommandHandler;
 import dturanski.placeorder.domain.Vehicle;
 import dturanski.placeorder.domain.VehicleSpec;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public class ManufacturingEventsHandlerTests {
     @Test
     public void buildBodyEvent() throws IOException {
 
-        String json = Utils.getResourceContents("VehicleSpecs.json");
+        String json = JsonUtils.getResourceContents("VehicleSpecs.json");
         VehicleSpec vehicleSpec = objectMapper.readValue(json, VehicleSpec.class);
 
         Vehicle vehicle = new Vehicle();

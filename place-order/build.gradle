@@ -1,5 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'com.google.cloud.tools.jib' version '1.2.0'
     id 'java'
     id 'idea'
     id 'maven'
@@ -16,6 +17,9 @@ repositories {
     mavenLocal()
     maven { url "https://repo.spring.io/milestone" }
 }
+
+jib.to.image = "dturanski/${rootProject.name}"
+jib.from.image='springcloud/openjdk'
 
 ext {
     set('springCloudVersion', 'Greenwich.SR1')

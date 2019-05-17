@@ -14,7 +14,8 @@ public class MessageChannelEventPublisher implements EventPublisher {
     @Override
     public void publishEvent(Event event) {
         Message message = MessageBuilder.withPayload(event)
-                .setHeader("eventType", event.getType()).build();
+                //TODO: Make constant
+                .setHeader("event-type", event.getType()).build();
         channel.send(message);
     }
 }

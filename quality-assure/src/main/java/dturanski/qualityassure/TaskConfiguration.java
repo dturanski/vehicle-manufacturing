@@ -17,9 +17,9 @@ import java.util.Map;
 import java.util.Random;
 
 @Configuration
+@Slf4j
 @EnableBinding(Source.class)
 @EnableTask
-@Slf4j
 public class TaskConfiguration {
 
     private static int PASS_RATE = 90;

@@ -39,7 +39,7 @@ public class ManufacturingCommandHandler {
         log.info("Sending add engine request {}", addEngineRequest);
         request().send(MessageBuilder.withPayload(addEngineRequest)
                 .setHeader("task.name", "add-engine")
-                .withPayload(addEngineRequest).build());
+                .build());
 
     }
 
@@ -63,14 +63,13 @@ public class ManufacturingCommandHandler {
     public void inspectVehicle(Vehicle vehicle) {
         log.info("Sending inspect vehicle request {}", vehicle);
         request().send(MessageBuilder.withPayload(vehicle)
-                .setHeader("task.name", "inspect-vehicle")
-                .withPayload(vehicle).build());
+                .setHeader("task.name", "inspect-vehicle").build());
     }
 
     @Bean
     IntegrationFlow transformToTaskLaunchRequest() {
         return IntegrationFlows.from(request())
-                .transform((Message m) -> {
+                .transform(Message.class, (Message m) -> {
                     DataFlowTaskLaunchRequest taskLaunchRequest = new DataFlowTaskLaunchRequest();
                     taskLaunchRequest.setTaskName(m.getHeaders().get("task.name").toString());
                     try {

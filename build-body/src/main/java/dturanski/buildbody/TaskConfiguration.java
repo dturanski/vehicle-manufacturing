@@ -57,6 +57,7 @@ public class TaskConfiguration {
             Event event = new Event();
             event.setType("bodyBuilt");
             event.setData(buildBodyRequest);
+            log.info("Publishing event", buildBodyRequest);
             eventPublisher.publishEvent(event);
         };
     }

@@ -9,7 +9,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'dturanski'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -18,7 +18,7 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
-jib.to.image = "dturanski/${rootProject.name}"
+jib.to.image = "dturanski/${rootProject.name}:${version}"
 jib.from.image='springcloud/openjdk'
 
 ext {
@@ -27,7 +27,7 @@ ext {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-task'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-stream'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
     implementation 'org.springframework.kafka:spring-kafka'

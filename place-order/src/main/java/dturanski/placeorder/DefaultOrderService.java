@@ -22,6 +22,7 @@ public class DefaultOrderService implements OrderService {
     public String  orderVehicle(VehicleSpec vehicleSpec) {
         Vehicle vehicle = new Vehicle(UUID.randomUUID().toString(),vehicleSpec,new VehicleStatus());
         vehicleRepository.save(vehicle);
+        //TODO: Wrap this in buildVehicle() method
         manufacturingCommandHandler.buildBody(new BuildBodyRequest(vehicle.getVinNumber(),vehicleSpec.getModel()));
         return vehicle.getVinNumber();
     }

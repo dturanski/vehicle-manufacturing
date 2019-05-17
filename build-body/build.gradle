@@ -9,7 +9,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'dturanski'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -17,7 +17,7 @@ repositories {
     mavenLocal()
 }
 
-jib.to.image = "dturanski/${rootProject.name}"
+jib.to.image = "dturanski/${rootProject.name}:${version}"
 jib.from.image='springcloud/openjdk'
 
 ext {
@@ -29,10 +29,13 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-stream'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
     implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.mariadb.jdbc:mariadb-java-client'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'dturanski:manufacturing-common:0.0.1-SNAPSHOT'
+    testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.kafka:spring-kafka-test'
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder'

@@ -1,4 +1,4 @@
-#Vehicle Manufacturing Process
+# Vehicle Manufacturing Process
 
 Prototype of an event-driven vehicle manufacturing process immplemented with Spring Cloud Stream.
 ```

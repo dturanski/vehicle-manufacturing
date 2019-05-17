@@ -27,3 +27,15 @@ The process is not linear - once the body is built, add engine, add transmission
 
 The inspect vehicle step cannot be completed until the assembly is complete. 
 
+## Build the app
+
+* Build the app
+
+The gradle build needs some work
+
+```
+cd manafacturing-common
+./gradlew build install
+cd ..
+./gradlew build install 
+```

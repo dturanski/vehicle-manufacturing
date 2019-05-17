@@ -39,3 +39,9 @@ cd manafacturing-common
 cd ..
 ./gradlew build install 
 ```
+
+To build docker images, you need, change the docker id in `build.gradle` and run the following for each project one at a time:
+
+```
+./gradlew jibDockerBuild
+```
